@@ -7,7 +7,10 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "Users",
-    indices = [Index(value = ["_id", "skey"])]
+    indices = [
+        Index(name = "Conversation_id", value = ["_id"]),
+        Index(name = "UserData_search_key", value = ["skey"])
+    ]
 )
 data class UserEntity(
 
@@ -16,77 +19,77 @@ data class UserEntity(
     val id: String,
 
     @ColumnInfo(name = "teamId")
-    var teamId: String?,
+    val teamId: String?,
 
     @ColumnInfo(name = "name")
-    var name: String?,
+    val name: String,
 
     @ColumnInfo(name = "email")
-    var email: String?,
+    val email: String?,
 
     @ColumnInfo(name = "phone")
-    var phone: String?,
+    val phone: String?,
 
     @ColumnInfo(name = "tracking_id")
-    var trackingId: String?,
+    val trackingId: String?,
 
     @ColumnInfo(name = "picture")
-    var picture: String?,
+    val picture: String?,
 
     @ColumnInfo(name = "accent")
-    var accentId: Int?,
+    val accentId: Int,
 
     @ColumnInfo(name = "skey")
-    var sKey: String?,
+    val sKey: String,
 
     @ColumnInfo(name = "connection")
-    var connection: String?,
+    val connection: String,
 
     @ColumnInfo(name = "conn_timestamp")
-    var connectionTimestamp: Long?,
+    val connectionTimestamp: Int,
 
     @ColumnInfo(name = "conn_msg")
-    var connectionMessage: String?,
+    val connectionMessage: String?,
 
     @ColumnInfo(name = "conversation")
-    var conversation: String?,
+    val conversation: String?,
 
     @ColumnInfo(name = "relation")
-    var relation: String?,
+    val relation: String,
 
     @ColumnInfo(name = "timestamp")
-    var timestamp: Long?,
+    val timestamp: Int?,
 
     @ColumnInfo(name = "verified")
-    var verified: String?,
+    val verified: String,
 
     @ColumnInfo(name = "deleted")
-    var deleted: Int?,
+    val deleted: Boolean,
 
     @ColumnInfo(name = "availability")
-    var availability: Int?,
+    val availability: Int,
 
     @ColumnInfo(name = "handle")
-    var handle: String?,
+    val handle: String?,
 
     @ColumnInfo(name = "provider_id")
-    var providerId: String?,
+    val providerId: String?,
 
     @ColumnInfo(name = "integration_id")
-    var integrationId: String?,
+    val integrationId: String?,
 
     @ColumnInfo(name = "expires_at")
-    var expiresAt: Int?,
+    val expiresAt: Int?,
 
     @ColumnInfo(name = "managed_by")
-    var managedBy: String?,
+    val managedBy: String?,
 
     @ColumnInfo(name = "self_permissions")
-    var selfPermission: Int?,
+    val selfPermission: Int,
 
     @ColumnInfo(name = "copy_permissions")
-    var copyPermission: Int?,
+    val copyPermission: Int,
 
     @ColumnInfo(name = "created_by")
-    var createdBy: String?
+    val createdBy: String?
 )

@@ -207,7 +207,6 @@ object UserData {
     val IntegrationId = opt(id[IntegrationId]('integration_id))(_.integrationId)
     val ExpiresAt = opt(remoteTimestamp('expires_at))(_.expiresAt)
     val Managed = opt(text[ManagedBy]('managed_by, _.toString, ManagedBy(_)))(_.managedBy)
-    val Fields = json[Seq[UserField]]('fields)(UserField.userFieldsDecoder, UserField.userFieldsEncoder)(_.fields)
     val SelfPermissions = long('self_permissions)(_.permissions._1)
     val CopyPermissions = long('copy_permissions)(_.permissions._2)
     val CreatedBy = opt(id[UserId]('created_by))(_.createdBy)
@@ -251,12 +250,11 @@ object UserData {
                 |    (
                 |      ${SKey.name} LIKE ? OR ${SKey.name} LIKE ?
                 |    ) AND (${Rel.name} = '${Rel(Relation.First)}' OR ${Rel.name} = '${Rel(Relation.Second)}' OR ${Rel.name} = '${Rel(Relation.Third)}')
-                |  ) OR ${Email.name} = ?
-                |    OR ${Handle.name} LIKE ?
+                |  ) OR ${Handle.name} LIKE ?
                 |) AND ${Deleted.name} = 0
                 |  AND ${Conn.name} != '${Conn(ConnectionStatus.Accepted)}' AND ${Conn.name} != '${Conn(ConnectionStatus.Blocked)}' AND ${Conn.name} != '${Conn(ConnectionStatus.Self)}'
               """.stripMargin,
-        Array(s"${query.asciiRepresentation}%", s"% ${query.asciiRepresentation}%", prefix, s"%${query.asciiRepresentation}%"))
+        Array(s"${query.asciiRepresentation}%", s"% ${query.asciiRepresentation}%", s"%${query.asciiRepresentation}%"))
     }
 
     def search(whereClause: String, args: Array[String])(implicit db: DB): Managed[Iterator[UserData]] =
