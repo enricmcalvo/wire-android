@@ -6,7 +6,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
-@ExperimentalCoroutinesApi
 class EmailAddressesTable126to127MigrationTest : UserDatabaseMigrationTest(126, 127) {
 
     @Test
@@ -21,16 +20,8 @@ class EmailAddressesTable126to127MigrationTest : UserDatabaseMigrationTest(126, 
             openHelper = testOpenHelper
         )
 
-        validateMigration(USER_DATABASE_MIGRATION_126_TO_127)
+        val db = validateMigration(USER_DATABASE_MIGRATION_126_TO_127)
 
-        runBlocking {
-            with(allEmailAddresses()[0]) {
-                assert(this.contactId == contactId)
-                assert(this.emailAddress == email)
-            }
-        }
+        EmailAddressesTableTestHelper.doesRoomTableExist(db)
     }
-
-    private suspend fun allEmailAddresses() =
-        getDatabase().emailAddressesDao().allEmailAddresses()
 }

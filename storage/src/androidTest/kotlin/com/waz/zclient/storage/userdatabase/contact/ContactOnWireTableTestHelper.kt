@@ -1,7 +1,9 @@
 package com.waz.zclient.storage.userdatabase.contact
 
 import android.content.ContentValues
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.waz.zclient.storage.DbSQLiteOpenHelper
+import com.waz.zclient.storage.userdatabase.RoomDbTestHelper
 
 class ContactOnWireTableTestHelper private constructor() {
 
@@ -23,5 +25,8 @@ class ContactOnWireTableTestHelper private constructor() {
                 contentValues = contentValues
             )
         }
+
+        fun doesRoomTableExist(db: SupportSQLiteDatabase): Boolean =
+            RoomDbTestHelper.doesTableExist(db, CONTACTS_ON_WIRE_TABLE_NAME)
     }
 }

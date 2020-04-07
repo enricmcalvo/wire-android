@@ -1,7 +1,9 @@
 package com.waz.zclient.storage.userdatabase.contact
 
 import android.content.ContentValues
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.waz.zclient.storage.DbSQLiteOpenHelper
+import com.waz.zclient.storage.userdatabase.RoomDbTestHelper
 
 
 class ContactHashesTableTestHelper private constructor() {
@@ -24,5 +26,8 @@ class ContactHashesTableTestHelper private constructor() {
                 contentValues = contentValues
             )
         }
+
+        fun doesRoomTableExist(db: SupportSQLiteDatabase): Boolean =
+            RoomDbTestHelper.doesTableExist(db, CONTACT_HASHES_TABLE_NAME)
     }
 }

@@ -1,7 +1,10 @@
 package com.waz.zclient.storage.userdatabase.email
 
 import android.content.ContentValues
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.waz.zclient.storage.DbSQLiteOpenHelper
+import com.waz.zclient.storage.userdatabase.RoomDbTestHelper
+import com.waz.zclient.storage.userdatabase.contact.ContactOnWireTableTestHelper
 
 
 class EmailAddressesTableTestHelper private constructor() {
@@ -23,5 +26,8 @@ class EmailAddressesTableTestHelper private constructor() {
                 contentValues = contentValues
             )
         }
+
+        fun doesRoomTableExist(db: SupportSQLiteDatabase): Boolean =
+            RoomDbTestHelper.doesTableExist(db, EMAIL_ADDRESSES_TABLE_NAME)
     }
 }

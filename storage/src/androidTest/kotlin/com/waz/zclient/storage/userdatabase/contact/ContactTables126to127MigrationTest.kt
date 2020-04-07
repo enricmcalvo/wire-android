@@ -2,11 +2,11 @@ package com.waz.zclient.storage.userdatabase.contact
 
 import com.waz.zclient.storage.db.users.migration.USER_DATABASE_MIGRATION_126_TO_127
 import com.waz.zclient.storage.userdatabase.UserDatabaseMigrationTest
+import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
-@ExperimentalCoroutinesApi
 class ContactTables126to127MigrationTest : UserDatabaseMigrationTest(126, 127) {
 
     @Test
@@ -26,16 +26,9 @@ class ContactTables126to127MigrationTest : UserDatabaseMigrationTest(126, 127) {
             searchKey = searchKey,
             openHelper = testOpenHelper)
 
-        validateMigration(USER_DATABASE_MIGRATION_126_TO_127)
+        val db = validateMigration(USER_DATABASE_MIGRATION_126_TO_127)
 
-        runBlocking {
-            with(allContacts()[0]) {
-                assert(this.id == id)
-                assert(this.name == name)
-                assert(this.sortKey == sortKey)
-                assert(this.searchKey == searchKey)
-            }
-        }
+        assertTrue(ContactsTableTestHelper.doesRoomTableExist(db))
     }
 
     @Test
@@ -50,14 +43,9 @@ class ContactTables126to127MigrationTest : UserDatabaseMigrationTest(126, 127) {
             openHelper = testOpenHelper
         )
 
-        validateMigration(USER_DATABASE_MIGRATION_126_TO_127)
+        val db = validateMigration(USER_DATABASE_MIGRATION_126_TO_127)
 
-        runBlocking {
-            with(allContactOnWire()[0]) {
-                assert(this.userId == userId)
-                assert(this.contactId == contactId)
-            }
-        }
+        assertTrue(ContactOnWireTableTestHelper.doesRoomTableExist(db))
     }
 
     @Test
@@ -72,22 +60,10 @@ class ContactTables126to127MigrationTest : UserDatabaseMigrationTest(126, 127) {
             openHelper = testOpenHelper
         )
 
-        validateMigration(USER_DATABASE_MIGRATION_126_TO_127)
+        val db = validateMigration(USER_DATABASE_MIGRATION_126_TO_127)
 
         runBlocking {
-            with(allContactHashes()[0]) {
-                assert(this.id == id)
-                assert(this.hashes == hashes)
-            }
+            assertTrue(ContactHashesTableTestHelper.doesRoomTableExist(db))
         }
     }
-
-    private suspend fun allContacts() =
-        getDatabase().contactsDao().allContacts()
-
-    private suspend fun allContactHashes() =
-        getDatabase().contactHashesDao().allContactHashes()
-
-    private suspend fun allContactOnWire() =
-        getDatabase().contactOnWireDao().allContactOnWire()
 }
