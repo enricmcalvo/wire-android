@@ -1,4 +1,4 @@
-@file:Suppress("MagicNumber", "TooManyFunctions", "LargeClass")
+@file:Suppress("TooManyFunctions", "LargeClass")
 
 package com.waz.zclient.storage.db.users.migration
 
@@ -23,7 +23,10 @@ private const val NEW_CLIENT_LOCATION_NAME_KEY = "locationName"
 private const val NEW_CLIENT_TIME_KEY = "time"
 private const val NEW_CLIENT_TYPE_KEY = "type"
 
-val USER_DATABASE_MIGRATION_126_TO_127 = object : Migration(126, 127) {
+private const val START_VERSION = 126
+private const val END_VERSION = 127
+
+val USER_DATABASE_MIGRATION_126_TO_127 = object : Migration(START_VERSION, END_VERSION) {
     override fun migrate(database: SupportSQLiteDatabase) {
         if (BuildConfig.KOTLIN_CORE) {
             //TODO Remove this

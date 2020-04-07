@@ -3,8 +3,8 @@ package com.waz.zclient.storage.db.accountdata
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-const val START_VERSION = 24
-const val END_VERSION = 25
+private const val START_VERSION = 24
+private const val END_VERSION = 25
 
 val GLOBAL_DATABASE_MIGRATION_24_25 = object : Migration(START_VERSION, END_VERSION) {
 
